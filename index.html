@@ -20,6 +20,7 @@
         .button-container {
             display: flex;
             gap: 30px;
+            margin-top: 20px;
         }
         button {
             padding: 10px 20px;
@@ -33,43 +34,67 @@
         button:hover {
             background-color: #ff3385;
         }
+        #love-question {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        #restart-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
-    <h1>你是黄佳汶吗？</h1>
-    <div class="button-container">
+    <h1 id="main-question">你是黄佳汶吗？</h1>
+    <div class="button-container" id="main-buttons">
         <button onclick="yesClicked()">是</button>
         <button onclick="noClicked()">不是</button>
     </div>
 
+    <div id="love-question">
+        <h1>你爱我吗？</h1>
+        <div class="button-container">
+            <button onclick="loveYes()">爱</button>
+            <button onclick="loveNo()">不爱</button>
+        </div>
+    </div>
+
+    <div id="restart-container">
+        <button onclick="restart()">重新开始</button>
+    </div>
+
     <script>
         function yesClicked() {
-            const love = `
-6个月快乐 ❤️❤️❤️
-
-       ******       ******
-     **********   **********
-    ************* *************
-    ***************************
-     *************************
-      ***********************
-       *********************
-        *******************
-         *****************
-          ***************
-           *************
-            ***********
-             *********
-              *******
-               *****
-                ***
-                 *
-`;
-            alert(love);
+            document.getElementById("main-question").style.display = "none";
+            document.getElementById("main-buttons").style.display = "none";
+            document.getElementById("love-question").style.display = "flex";
         }
 
         function noClicked() {
             alert("叫黄佳汶 Eng Jia Wen 来！");
+            showRestart();
+        }
+
+        function loveYes() {
+            const love = `6个月快乐 ❤️❤️❤️\n\n       ******       ******\n     **********   **********\n    ************* *************\n    ***************************\n     *************************\n      ***********************\n       *********************\n        *******************\n         *****************\n          ***************\n           *************\n            ***********\n             *********\n              *******\n               *****\n                ***\n                 *`;
+            alert(love);
+            showRestart();
+        }
+
+        function loveNo() {
+            alert("sad sad 😢😢😢");
+            showRestart();
+        }
+
+        function showRestart() {
+            document.getElementById("restart-container").style.display = "flex";
+        }
+
+        function restart() {
+            location.reload();
         }
     </script>
 </body>
