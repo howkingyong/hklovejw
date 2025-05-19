@@ -221,7 +221,8 @@
     }
 
     function loveYes() {
-      const love = `6个月快乐 ❤️❤️❤️\n\n       ******       ******\n     **********   **********\n    ************* *************\n    ***************************\n     *************************\n      ***********************\n       *********************\n        *******************\n         *****************\n          ***************\n           *************\n            ***********\n             *********\n              *******\n               *****\n                ***\n                 *`;
+      const love = `520 快乐 ❤️❤️❤️\n\n       ******       ******\n     **********   **********\n    ************* *************\n    ***************************\n     *************************\n      ***********************\n       *********************\n        *******************\n         *****************\n          ***************\n           *************\n            ***********\n             *********\n              *******\n               *****\n                ***\n                 *`;
+
       alert(love);
       createHearts();
       setTimeout(() => alert("我每天都在想你 ❤️ luv u very very much"), 500);
@@ -274,7 +275,100 @@
       petal.style.animationDelay = Math.random() * 5 + "s";
       document.body.appendChild(petal);
     }
+ // 🎵 Play/Pause toggle
+  function toggleMusic() {
+    const music = document.getElementById("bg-music");
+    if (music.paused) music.play();
+    else music.pause();
+  }
+
+  // 🎁 Surprise Message
+  function showSurprise() {
+    const messages = [
+      "每天都爱你多一点 ❤️",
+      "520快乐！",
+      "想你 ing~ 💭",
+      "你是我小甜心 🍬",
+      "我最喜欢的人是你 ✨"
+    ];
+    alert(messages[Math.floor(Math.random() * messages.length)]);
+  }
+
+  // 💬 Fake Chat Bubbles
+  function fakeChat() {
+    const messages = ["你在想我吗？", "我真的很爱你。", "嘿嘿，今天要记得开心哦！"];
+    let i = 0;
+    const chatInterval = setInterval(() => {
+      if (i >= messages.length) return clearInterval(chatInterval);
+      const msg = document.createElement("div");
+      msg.textContent = messages[i++];
+      msg.style.cssText =
+        "margin:5px auto; background:#fff0f5; padding:10px 15px; border-radius:15px; max-width:80%; font-size:16px; color:#cc2277; box-shadow:0 0 5px rgba(0,0,0,0.1);";
+      document.body.appendChild(msg);
+    }, 1500);
+  }
+
+  // 🎇 Fireworks animation (for 520 celebration)
+  function celebrateAnniversary() {
+    alert("🎉 一周年快乐！永远爱你！");
+    createHearts();
+    triggerFireworks();
+  }
+
+  function triggerFireworks() {
+    const canvas = document.getElementById("fireworkCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.style.display = "block";
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: Math.random() * 3 + 1,
+        color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+        angle: Math.random() * 2 * Math.PI,
+        speed: Math.random() * 5 + 2,
+        alpha: 1
+      });
+    }
+
+    let frame = 0;
+    const animate = () => {
+      frame++;
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.01;
+        if (p.alpha <= 0) particles.splice(index, 1);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      if (particles.length > 0) requestAnimationFrame(animate);
+      else canvas.style.display = "none";
+    };
+    animate();
+  }
   </script>
+<!-- Add these two buttons into the body, after the restart-container -->
+<div class="button-container">
+  <button onclick="toggleMusic()">🎵 播放/暂停音乐</button>
+  <button onclick="showSurprise()">🎁 惊喜！</button>
+  <button onclick="fakeChat()">💬 聊天泡泡</button>
+</div>
+
+<!-- Firework container (hidden by default) -->
+<canvas id="fireworkCanvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; display:none;"></canvas>
+
 </body>
 </html>
 <!-- [END OF FILE] -->
